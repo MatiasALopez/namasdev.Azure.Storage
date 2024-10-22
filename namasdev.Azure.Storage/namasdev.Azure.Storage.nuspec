@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>namasdev.Azure.Storage</id>
+    <version>1.0.0</version>
+    <title>namasdev Azure Storage</title>
+    <authors>Matias Alberto Lopez</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <!-- <icon>icon.png</icon> -->
+    <projectUrl>https://github.com/MatiasALopez/namasdev.Azure.Storage</projectUrl>
+    <description>namasdev Azure Storage library</description>
+    <releaseNotes></releaseNotes>
+    <copyright>2024</copyright>
+    <tags>namasdev</tags>
+    <dependencies>
+      <dependency id="namasdev.Core" version="1.0.1" />
+      <dependency id="namasdev.Data" version="1.0.0" />
+    </dependencies>
+  </metadata>
+</package>
