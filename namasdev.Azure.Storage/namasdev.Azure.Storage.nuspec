@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>namasdev.Azure.Storage</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>namasdev Azure Storage</title>
     <authors>Matias Alberto Lopez</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
