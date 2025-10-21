@@ -84,25 +84,43 @@ namespace namasdev.Azure.Storage
             };
         }
 
-        public async Task<byte[]> ObtenerBytesAsync(string url)
+        public async Task<Archivo> ObtenerArchivoAsync(string contenedor, string nombreArchivo,
+            params string[] directorios)
         {
-            return await ObtenerBytesAsync(new Uri(url));
+            var blob = ObtenerReferenciaBlob(contenedor, nombreArchivo, directorios);
+            return new Archivo
+            {
+                Nombre = Path.GetFileName(nombreArchivo),
+                Contenido = await ObtenerBytesAsync(blob)
+            };
         }
 
-        public async Task<byte[]> ObtenerBytesAsync(Uri uri)
+        public Archivo ObtenerArchivo(string url)
         {
-            var blob = BlobClient.GetBlobReferenceFromServer(uri);
+            return new Archivo
+            {
+                Nombre = Path.GetFileName(url),
+                Contenido = ObtenerBytes(url),
+            };
+        }
 
-            blob.FetchAttributes();
-            var bytes = new byte[blob.Properties.Length];
-            await blob.DownloadToByteArrayAsync(bytes, 0);
-
-            return bytes;
+        public async Task<Archivo> ObtenerArchivoAsync(string url)
+        {
+            return new Archivo
+            {
+                Nombre = Path.GetFileName(url),
+                Contenido = await ObtenerBytesAsync(url),
+            };
         }
 
         public byte[] ObtenerBytes(string url)
         {
             return ObtenerBytes(new Uri(url));
+        }
+
+        public async Task<byte[]> ObtenerBytesAsync(string url)
+        {
+            return await ObtenerBytesAsync(new Uri(url));
         }
 
         public byte[] ObtenerBytes(Uri uri)
@@ -116,11 +134,31 @@ namespace namasdev.Azure.Storage
             return bytes;
         }
 
+        public async Task<byte[]> ObtenerBytesAsync(Uri uri)
+        {
+            var blob = BlobClient.GetBlobReferenceFromServer(uri);
+
+            blob.FetchAttributes();
+            var bytes = new byte[blob.Properties.Length];
+            await blob.DownloadToByteArrayAsync(bytes, 0);
+
+            return bytes;
+        }
+
         private byte[] ObtenerBytes(ICloudBlob blob)
         {
             blob.FetchAttributes();
             var bytes = new byte[blob.Properties.Length];
             blob.DownloadToByteArray(bytes, 0);
+
+            return bytes;
+        }
+
+        private async Task<byte[]> ObtenerBytesAsync(ICloudBlob blob)
+        {
+            blob.FetchAttributes();
+            var bytes = new byte[blob.Properties.Length];
+            await blob.DownloadToByteArrayAsync(bytes, 0);
 
             return bytes;
         }
